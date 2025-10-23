@@ -1,6 +1,8 @@
 import express from 'express';
 
+// Import database configuration and models
 import "./config/db.js";
+import "./models/userModel.js";
 
 const app = express();
 const port = 3000;
