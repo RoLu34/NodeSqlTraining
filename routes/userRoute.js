@@ -1,13 +1,20 @@
 import express from 'express';
 
+import { getAllUsers, getOneUser, createUser } from '../controllers/userController.js';
+
 const userRoute = express.Router();
 
 userRoute.get('/', (req, res) => {
-    res.send('User route get request is working !');
+
+    getAllUsers(req, res);
+})
+
+userRoute.get('/:id', (req, res) => {
+    getOneUser(req, res);
 })
 
 userRoute.post('/', (req, res) => {
-    res.send(`Data received: ${JSON.stringify(req.body)}`);
+    createUser(req, res);
 })
 
 export default userRoute;
