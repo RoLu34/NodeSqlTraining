@@ -1,3 +1,4 @@
+import { isUsernameValid, isEmailValid, isPasswordValid } from "../middleware/validations/userValidation.js";
 import User from "../models/userModel.js";
 
 export const getAllUsers = async (req, res) => {
@@ -23,7 +24,19 @@ export const getOneUser = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-    
+
+    if(!isUsernameValid(req.body.username)){
+        return res.status(400).json({ error: "Invalid username format." });
+    }
+
+    if(!isEmailValid(req.body.email)){
+        return res.status(400).json({ error: "Invalid email format." });
+    }
+
+    if(!isPasswordValid(req.body.password)){
+        return res.status(400).json({ error: "Invalid password format" });
+    }
+
     try{
         await User.create(req.body);
         res.status(201).json({ message: "User created successfully." });
@@ -33,6 +46,19 @@ export const createUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+
+    if(!isUsernameValid(req.body.username)){
+        return res.status(400).json({ error: "Invalid username format." });
+    }
+
+    if(!isEmailValid(req.body.email)){
+        return res.status(400).json({ error: "Invalid email format." });
+    }
+
+    if(!isPasswordValid(req.body.password)){
+        return res.status(400).json({ error: "Invalid password format" });
+    }
+
     try{
         const user = await User.findByPk(req.params.id);
         if(user){
